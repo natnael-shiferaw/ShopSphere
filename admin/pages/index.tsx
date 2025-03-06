@@ -21,6 +21,12 @@ export default function Home() {
       ) : (
         <div className="text-center mt-4">
           Signed in as {session.user?.email ?? "Unknown user"}
+          <button
+            className="m-4 p-2 px-4 bg-gray-300 rounded-lg hover:cursor-pointer"
+            onClick={() => signOut()} // Sign Out function
+          >
+            LogOut
+          </button>
         </div>
       )}
 
