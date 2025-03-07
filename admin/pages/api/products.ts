@@ -9,7 +9,7 @@ const handleProduct = async (req: NextApiRequest, res: NextApiResponse) => {
 
   // Get products
   if(req.method === 'GET'){
-    res.json(await Product.find());
+    res.json(await Product.find({}));
   }
 
   // Handle add Product
