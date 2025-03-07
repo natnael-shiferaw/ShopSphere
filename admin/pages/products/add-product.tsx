@@ -1,17 +1,20 @@
 import axios from 'axios'
-import React, { useState } from 'react'
+import { useRouter } from 'next/router'
+import React, { useState} from 'react'
 
 function AddProduct() {
-  const [productName, setProudctName] = useState('')
-  const [productDescription, setProductDescription] = useState('')
+  const [name, setName] = useState('')
+  const [description, setDescription] = useState('')
   const [price, setPrice] = useState('')
+  const router = useRouter();
 
-  async function createProduct(e : React.FormEvent<HTMLFormElement>) {
+  async function createProduct(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    const data = {productName, productDescription, price};
+    const data = { name, description, price };
     await axios.post('/api/products', data);
-  }
     
+    router.push('/products');
+  }
 
   return (
     <>
@@ -20,30 +23,30 @@ function AddProduct() {
 
         <form onSubmit={createProduct} className='space-y-4'>
           <label>Product name</label>
-          <input 
-            type="text" 
+          <input
+            type="text"
             placeholder='product name'
-            onChange={(e) => setProudctName(e.target.value)}
-            value={productName} 
+            onChange={(e) => setName(e.target.value)}
+            value={name}
           />
 
           <label>Product Description</label>
-          <textarea 
+          <textarea
             placeholder='description'
-            onChange={(e) => setProductDescription(e.target.value)}
-            value={productDescription} 
+            onChange={(e) => setDescription(e.target.value)}
+            value={description}
           />
 
           <label>Price</label>
-          <input 
-            type="number" 
+          <input
+            type="number"
             placeholder='price in USD'
             onChange={(e) => setPrice(e.target.value)}
-            value={price} 
+            value={price}
           />
 
-          <button 
-            type="submit" 
+          <button
+            type="submit"
             className='bg-blue-900 text-white p-2 px-4 mt-4 rounded-lg hover:cursor-pointer'
           >
             Save
