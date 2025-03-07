@@ -28,7 +28,7 @@ export default function Layout({ children }: LayoutProps) {
               </button>
             </div>
           ) : (
-            <div className="flex bg-slate-100 justify-between m-2 ml-0 p-3 rounded-md">
+            <div className="flex bg-slate-100 justify-between m-2 ml-0 mt-0 p-3 rounded-md">
               <p>Welcome, <strong>{session.user?.name ?? "Unknown user"}</strong></p>
               <div className="flex gap-2">
                 <button
@@ -48,7 +48,10 @@ export default function Layout({ children }: LayoutProps) {
           )}
         </div>
 
-        {children}
+        <div className="m-2 lg:m-4">
+          {children}
+        </div>
+        
       </div>
 
     </div>
