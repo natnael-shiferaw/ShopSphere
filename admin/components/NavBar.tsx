@@ -9,7 +9,7 @@ function NavBar() {
     const activeLink = `${inactiveLink} bg-gray-800 text-white`
 
     return (
-        <aside className='bg-gray-300 p-4 flex flex-col gap-2 h-screen rounded'>
+        <aside className="bg-gray-300 p-4 flex flex-col gap-2 h-screen sticky top-0 left-0 overflow-y-auto rounded">
             <Link href={'/'} className='border-b border-gray-700 pb-4 rounded mb-16 flex gap-1 text-2xl font-bold items-center'>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0 0 12 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75Z" />

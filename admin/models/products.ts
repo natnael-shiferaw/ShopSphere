@@ -14,10 +14,10 @@ const ProductSchema = new Schema({
     type: Number,
     required: true,
   },
-//   image: {
-//     type: String,
-//     required: true,
-//   },
-});
+  images: {
+    type: [String],
+    required: false,
+  },
+}, {timestamps: true});
 
 export const Product = models.Product || model('Product', ProductSchema);
