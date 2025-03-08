@@ -45,7 +45,7 @@ const handleProduct = async (req: NextApiRequest, res: NextApiResponse) => {
       if (!name || !description || isNaN(price)) {
         return res.status(400).json({ error: "Invalid product data" });
       }
-  
+
       const imageUrls: string[] = [];
   
       // Upload images to Cloudinary
