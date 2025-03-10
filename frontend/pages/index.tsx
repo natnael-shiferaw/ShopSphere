@@ -1,114 +1,204 @@
-import Image from "next/image";
-import { Geist, Geist_Mono } from "next/font/google";
+"use client"
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import Head from "next/head"
+import Link from "next/link"
+import Image from "next/image"
+import ProductCard from "@/components/product-card"
+import { Button } from "@/components/ui/button"
+import { ArrowRight, Plus } from "lucide-react"
+import Newsletter from "@/components/Newsletter"
+import HeroSection from "@/components/HeroSection"
 
 export default function Home() {
-  return (
-    <div
-      className={`${geistSans.variable} ${geistMono.variable} grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]`}
-    >
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              pages/index.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const newArrivals = [
+    {
+      id: 1,
+      name: "One Life Graphic Tee",
+      price: 20,
+      image: "/placeholder.svg?height=300&width=300",
+      category: "T-shirts",
+    },
+    {
+      id: 2,
+      name: "Skinny Fit Jeans",
+      price: 40,
+      image: "/placeholder.svg?height=300&width=300",
+      category: "Jeans",
+    },
+    {
+      id: 3,
+      name: "Checkered Shirt",
+      price: 35,
+      image: "/placeholder.svg?height=300&width=300",
+      category: "Shirts",
+    },
+    {
+      id: 4,
+      name: "Retro Striped T-shirt",
+      price: 25,
+      image: "/placeholder.svg?height=300&width=300",
+      category: "T-shirts",
+    },
+  ]
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  const topSelling = [
+    {
+      id: 5,
+      name: "Vintage Denim Shirt",
+      price: 45,
+      image: "/placeholder.svg?height=300&width=300",
+      category: "Shirts",
+    },
+    {
+      id: 6,
+      name: "Orange Graphic Tee",
+      price: 20,
+      image: "/placeholder.svg?height=300&width=300",
+      category: "T-shirts",
+    },
+    {
+      id: 7,
+      name: "Loose Fit Bermuda Shorts",
+      price: 30,
+      image: "/placeholder.svg?height=300&width=300",
+      category: "Shorts",
+    },
+    {
+      id: 8,
+      name: "Plaid Flannel Jeans",
+      price: 50,
+      image: "/placeholder.svg?height=300&width=300",
+      category: "Jeans",
+    },
+  ]
+
+  const dressStyles = [
+    { id: 1, name: "Casual", image: "/placeholder.svg?height=150&width=150" },
+    { id: 2, name: "Formal", image: "/placeholder.svg?height=150&width=150" },
+    { id: 3, name: "Party", image: "/placeholder.svg?height=150&width=150" },
+    { id: 4, name: "Gym", image: "/placeholder.svg?height=150&width=150" },
+  ]
+
+  const customerReviews = [
+    {
+      id: 1,
+      name: "John D.",
+      rating: 5,
+      comment: "Great quality products and fast shipping. Will definitely shop here again!",
+    },
+    {
+      id: 2,
+      name: "Sarah M.",
+      rating: 4,
+      comment: "Love the variety of styles. The fit is perfect and the material is comfortable.",
+    },
+    {
+      id: 3,
+      name: "Michael T.",
+      rating: 5,
+      comment: "Excellent customer service and the clothes are exactly as described. Very satisfied!",
+    },
+  ]
+
+  return (
+    <>
+      <Head>
+        <title>SHOPSPHERE - Find Clothes That Match Your Style</title>
+        <meta name="description" content="Shop the latest fashion trends at SHOPSPHERE" />
+      </Head>
+
+      {/* Hero Section */}
+      <HeroSection />
+
+      {/* New Arrivals Section */}
+      <section className="py-16 px-6 md:px-12 bg-white">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex justify-between items-center mb-8">
+            <h2 className="text-2xl font-bold uppercase">NEW ARRIVALS</h2>
+            <Link href="/new-arrivals" className="text-sm flex items-center gap-2">
+              View all <ArrowRight size={16} />
+            </Link>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {newArrivals.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
+      </section>
+
+      {/* Top Selling Section */}
+      <section className="py-16 px-6 md:px-12 bg-gray-50">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex justify-between items-center mb-8">
+            <h2 className="text-2xl font-bold uppercase">top selling</h2>
+            <Link href="/top-selling" className="text-sm flex items-center gap-2">
+              View all <ArrowRight size={16} />
+            </Link>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {topSelling.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Browse By Style Section */}
+      <section className="py-16 px-6 md:px-12 bg-white">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-2xl font-bold uppercase mb-8">BROWSE BY dress STYLE</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {dressStyles.map((style) => (
+              <Link href={`/style/${style.name.toLowerCase()}`} key={style.id} className="group">
+                <div className="relative overflow-hidden bg-gray-100 aspect-square">
+                  <Image
+                    src={style.image || "/placeholder.svg"}
+                    alt={style.name}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  <div className="absolute inset-0 flex items-end p-4">
+                    <p className="text-lg font-medium bg-white/80 px-3 py-1">{style.name}</p>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Happy Customers Section */}
+      <section className="py-16 px-6 md:px-12 bg-gray-50">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex justify-between items-center mb-8">
+            <h2 className="text-2xl font-bold uppercase">OUR HAPPY CUSTOMERS</h2>
+            <button className="text-sm">
+              <Plus size={16} />
+            </button>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {customerReviews.map((review) => (
+              <div key={review.id} className="bg-white p-6 shadow-sm">
+                <div className="flex items-center gap-1 mb-2">
+                  {[...Array(5)].map((_, i) => (
+                    <span key={i} className={i < review.rating ? "text-yellow-400" : "text-gray-300"}>
+                      ★
+                    </span>
+                  ))}
+                </div>
+                <p className="text-sm mb-4">{review.comment}</p>
+                <p className="text-sm font-medium">{review.name}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Newsletter Section */}
+      <Newsletter />
+
+    </>
+  )
 }
+
