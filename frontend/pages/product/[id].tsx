@@ -7,6 +7,7 @@ import { useRouter } from "next/router"
 import ProductCard from "@/components/product-card"
 import { Button } from "@/components/ui/button"
 import { Minus, Plus, Star } from "lucide-react"
+import Newsletter from "@/components/Newsletter"
 
 export default function ProductDetail() {
   const router = useRouter()
@@ -128,43 +129,6 @@ export default function ProductDetail() {
             <p className="text-gray-600">{product.description}</p>
 
             <div className="space-y-4">
-              <div>
-                <h3 className="font-medium mb-2">Select Colors</h3>
-                <div className="flex gap-2">
-                  {product.colors.map((color) => (
-                    <button
-                      key={color}
-                      onClick={() => setSelectedColor(color)}
-                      className={`w-8 h-8 rounded-full ${
-                        color === "olive"
-                          ? "bg-olive-600"
-                          : color === "black"
-                            ? "bg-black"
-                            : color === "green"
-                              ? "bg-green-700"
-                              : ""
-                      } ${selectedColor === color ? "ring-2 ring-offset-2 ring-black" : ""}`}
-                    />
-                  ))}
-                </div>
-              </div>
-
-              <div>
-                <h3 className="font-medium mb-2">Choose Size</h3>
-                <div className="flex gap-2">
-                  {product.sizes.map((size) => (
-                    <button
-                      key={size}
-                      onClick={() => setSelectedSize(size)}
-                      className={`w-10 h-10 flex items-center justify-center border ${
-                        selectedSize === size ? "bg-black text-white" : "bg-white text-black"
-                      }`}
-                    >
-                      {size}
-                    </button>
-                  ))}
-                </div>
-              </div>
 
               <div className="flex gap-4 items-center">
                 <div className="flex items-center border">
@@ -186,7 +150,7 @@ export default function ProductDetail() {
         </div>
 
         {/* You might also like */}
-        <div className="mt-16">
+        <div className="my-16">
           <h2 className="text-2xl font-bold mb-6">You might also like</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {relatedProducts.map((product) => (
@@ -196,25 +160,7 @@ export default function ProductDetail() {
         </div>
 
         {/* Newsletter */}
-        <section className="py-12 px-6 md:px-12 bg-black text-white mt-16">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <h2 className="text-xl font-bold uppercase mb-4 md:mb-0">
-              STAY UPTO DATE ABOUT
-              <br />
-              OUR LATEST OFFERS
-            </h2>
-            <div className="w-full md:w-auto">
-              <div className="flex flex-col md:flex-row gap-2">
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  className="px-4 py-2 bg-white text-black min-w-[250px]"
-                />
-                <Button className="bg-white text-black hover:bg-gray-200 rounded-none">SUBSCRIBE</Button>
-              </div>
-            </div>
-          </div>
-        </section>
+        <Newsletter />
       </div>
     </>
   )
