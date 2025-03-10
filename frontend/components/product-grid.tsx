@@ -1,15 +1,15 @@
 import ProductCard from "./product-card"
 
 interface Product {
-  id: number
-  name: string
-  price: number
-  image: string
-  category: string
+  id: string | number;
+  name: string;
+  price: number;
+  image: string;
+  category: string;
 }
 
 interface ProductGridProps {
-  products: Product[]
+  products: Product[];
 }
 
 export default function ProductGrid({ products }: ProductGridProps) {
@@ -19,5 +19,5 @@ export default function ProductGrid({ products }: ProductGridProps) {
         <ProductCard key={product.id} product={product} />
       ))}
     </div>
-  )
+  );
 }
