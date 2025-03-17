@@ -26,10 +26,26 @@ const uploadImage = async (filePath: string) => {
 
 // Handle API Requests
 const handleProduct = async (req: NextApiRequest, res: NextApiResponse) => {
+  // // Set CORS headers
+  // res.setHeader("Access-Control-Allow-Credentials", "true");
+  // res.setHeader("Access-Control-Allow-Origin", "*");
+  // res.setHeader("Access-Control-Allow-Methods", "GET,OPTIONS,POST,PUT,DELETE");
+  // res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+
+  // // Handle preflight OPTIONS request
+  // if (req.method === "OPTIONS") {
+  //   return res.status(200).end();
+  // }
+
   await mongooseConnect();
 
   if (req.method === "GET") {
-    res.json(await Product.find({}));
+    if(req.query?.id) {
+      return res.json(await Product.findOne({_id: req.query.id}))
+    } else {
+      res.json(await Product.find({}));
+    }
+    
   }
 
   if (req.method === "POST") {

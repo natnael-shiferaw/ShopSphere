@@ -9,7 +9,6 @@ type Product = {
   price?: number;
 }
 
-
 function Products() {
   const [products, setProducts] = useState<Product[]>([]);
 
