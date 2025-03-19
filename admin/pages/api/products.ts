@@ -38,16 +38,15 @@ const handleProduct = async (req: NextApiRequest, res: NextApiResponse) => {
   // }
 
   await mongooseConnect();
-
+  // get products or a single product
   if (req.method === "GET") {
     if(req.query?.id) {
       return res.json(await Product.findOne({_id: req.query.id}))
     } else {
       res.json(await Product.find({}));
     }
-    
   }
-
+  // create product
   if (req.method === "POST") {
     const form = new IncomingForm();
     form.parse(req, async (err, fields, files) => {
@@ -90,6 +89,78 @@ const handleProduct = async (req: NextApiRequest, res: NextApiResponse) => {
       res.status(200).json(productDoc);
     });
   }
+
+  //update the product
+  if (req.method === "PUT") {
+    const form = new IncomingForm();
+
+    form.parse(req, async (err, fields, files) => {
+      if (err) return res.status(500).json({ error: "File upload error" });
+
+      const _id = fields._id?.toString();
+      const name = Array.isArray(fields.name) ? fields.name[0] : fields.name;
+      const description = Array.isArray(fields.description)
+        ? fields.description[0]
+        : fields.description;
+      const price = Array.isArray(fields.price) ? fields.price[0] : fields.price;
+      const category = Array.isArray(fields.category) ? fields.category[0] : fields.category;
+      const dressStyle = Array.isArray(fields.dressStyle) ? fields.dressStyle[0] : fields.dressStyle;
+
+      if (!_id) return res.status(400).json({ error: "Product ID is required" });
+
+      // Handle existing images
+      const existingImages = Array.isArray(fields.images)
+        ? fields.images
+        : fields.images
+        ? [fields.images]
+        : [];
+
+      const newImageUrls: string[] = [];
+
+      // Upload new images to Cloudinary if provided
+      if (files.images) {
+        const fileArray = Array.isArray(files.images) ? files.images : [files.images];
+        for (const file of fileArray) {
+          if (file && (file as any).filepath) {
+            const filePath = (file as any).filepath;
+            const imageUrl = await uploadImage(filePath);
+            newImageUrls.push(imageUrl);
+            fs.unlinkSync(filePath); // Remove temp file after upload
+          }
+        }
+      }
+
+      // Merge existing and new images
+      const updatedImages = [...existingImages, ...newImageUrls];
+
+      try {
+        const updatedProduct = await Product.findByIdAndUpdate(
+          _id,
+          {
+            name,
+            description,
+            price: Number(price), // Ensure it's a number
+            category,
+            dressStyle,
+            images: updatedImages,
+          },
+          { new: true }
+        );
+
+        if (!updatedProduct) {
+          return res.status(404).json({ error: "Product not found" });
+        }
+
+        return res.status(200).json(updatedProduct);
+      } catch (error) {
+        return res.status(500).json({ error: "Database update failed", details: error.message });
+      }
+    });
+  } else {
+    res.setHeader("Allow", ["PUT"]);
+    res.status(405).json({ error: `Method ${req.method} not allowed` });
+  }
+  
 };
 
 export default handleProduct;

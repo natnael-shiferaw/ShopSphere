@@ -18,7 +18,6 @@ export default function EditProductPage() {
         })
     }, [id])
 
-
     return (
         <div className="flex flex-col gap-8">
             <h1>Edit Product Page</h1>

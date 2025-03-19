@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { ProductInfo } from "@/interfaces";
 
 export default function ProductForm({
+    _id,
     name: existingName,
     description: existingDescription,
     price: existingPrice,
@@ -36,27 +37,58 @@ export default function ProductForm({
     };
 
     // Handle Form Submission
-    async function createProduct(e: React.FormEvent<HTMLFormElement>) {
+    async function saveProduct(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         const formData = new FormData();
 
+        formData.append("_id", _id as string);
         formData.append("name", name.trim());
         formData.append("description", description.trim());
         formData.append("price", String(price));
         formData.append("category", category);
         formData.append("dressStyle", dressStyle);
 
-        images.forEach((image) => formData.append("images", image));
+         // Append existing images as text fields so they can be merged server-side.
+  existingImagesState.forEach((img) => formData.append("images", img));
 
-        await axios.post("/api/products", formData, {
-            headers: { "Content-Type": "multipart/form-data" },
-        });
+  // Append new images as file fields
+  images.forEach((image) => formData.append("images", image));
 
-        router.push("/products");
+        if(_id) {
+            // update the product details
+            try {
+                const res = await axios.put("/api/products", formData, {
+                  headers: { "Content-Type": "multipart/form-data" },
+                });
+                if (res.status === 200) {
+                  alert("Product updated successfully");
+                  router.push("/products");
+                }
+              } catch (error: any) {
+                console.error("Error updating product:", error);
+                alert(error.response?.data?.error || "Error updating product");
+              }
+        } else {
+            // create new product
+            await axios.post("/api/products", formData, {
+                headers: { "Content-Type": "multipart/form-data" },
+            });
+            router.push("/products");
+        }
     }
+    // function to remove existing images
+    const removeExistingImage = (index: number) => {
+        setExistingImagesState(existingImagesState.filter((_,i) => i !== index));
+    }
+    // function to remove the newly uploaded images
+    const removePreviewImage = (index: number) => {
+        setPreviewImages(previewImages.filter((_, i) => i !== index));
+        setImages(images.filter((_, i) => i !== index));
+    };
+
     return (
         <div>
-            <form onSubmit={createProduct} className="space-y-4">
+            <form onSubmit={saveProduct} className="space-y-4">
                 <label>Product Name</label>
                 <input type="text" placeholder="Product name" onChange={(e) => setName(e.target.value)} value={name} />
 
@@ -103,16 +135,24 @@ export default function ProductForm({
                 {/**existing images */}
                 <div className="flex gap-4 mt-2">
                     {existingImagesState.map((image, index) => (
-                        <img key={index} src={image} alt="existing images"
+                        <div className="relative">
+                            <img key={index} src={image} alt="existing images"
                             className="w-20 h-20 object-cover rounded" />
+                            <button onClick={() => removeExistingImage(index)}
+                                 className="absolute top-1 right-1 bg-red-500 text-white text-sm rounded-full p-1 hover:cursor-pointer">X</button>
+                        </div>
+                        
                     ))}
                 </div>
 
-
-                {/* Show Preview */}
+                {/* Show Preview images */}
                 <div className="flex gap-4 mt-2">
                     {previewImages.map((image, index) => (
-                        <img key={index} src={image} alt="Preview" className="w-20 h-20 object-cover rounded" />
+                        <div className="relative">
+                            <img key={index} src={image} alt="Preview" className="w-20 h-20 object-cover rounded" />
+                            <button onClick={() => removePreviewImage(index)}
+                                 className="absolute top-1 right-1 bg-red-500 text-white text-sm rounded-full p-1 hover:cursor-pointer">X</button>
+                        </div>
                     ))}
                 </div>
 
