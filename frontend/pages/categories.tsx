@@ -19,6 +19,7 @@ export default function Categories() {
       try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products`);
         const data = await res.json();
+        console.log(data)
 
         // Transform data to match frontend structure
         const formattedProducts = data.map((product: any) => ({
