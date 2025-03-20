@@ -32,9 +32,12 @@ export default function Layout({ children }: LayoutProps) {
               <p>Welcome, <strong>{session.user?.name ?? "Unknown user"}</strong></p>
               <div className="flex gap-2">
                 <button
-                  className="p-1 px-2 text-sm bg-red-500 text-white rounded-lg hover:cursor-pointer"
+                  className="p-1 px-2 gap-1 items-center justify-center text-sm bg-red-600 text-white rounded-lg hover:cursor-pointer hover:bg-red-700 inline-flex"
                   onClick={() => signOut()} // Sign Out function
                 >
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-4">
+  <path strokeLinecap="round" strokeLinejoin="round" d="M5.636 5.636a9 9 0 1 0 12.728 0M12 3v9" />
+</svg>
                   LogOut
                 </button>
                 <img
