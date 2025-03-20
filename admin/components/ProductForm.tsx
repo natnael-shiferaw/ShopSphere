@@ -41,33 +41,35 @@ export default function ProductForm({
         e.preventDefault();
         const formData = new FormData();
 
-        formData.append("_id", _id as string);
+        if (_id) {
+            formData.append("_id", _id as string);
+        }      
         formData.append("name", name.trim());
         formData.append("description", description.trim());
         formData.append("price", String(price));
         formData.append("category", category);
         formData.append("dressStyle", dressStyle);
 
-         // Append existing images as text fields so they can be merged server-side.
-  existingImagesState.forEach((img) => formData.append("images", img));
+        // Append existing images as text fields so they can be merged server-side.
+        existingImagesState.forEach((img) => formData.append("images", img));
 
-  // Append new images as file fields
-  images.forEach((image) => formData.append("images", image));
+        // Append new images as file fields
+        images.forEach((image) => formData.append("images", image));
 
-        if(_id) {
+        if (_id) {
             // update the product details
             try {
                 const res = await axios.put("/api/products", formData, {
-                  headers: { "Content-Type": "multipart/form-data" },
+                    headers: { "Content-Type": "multipart/form-data" },
                 });
                 if (res.status === 200) {
-                  alert("Product updated successfully");
-                  router.push("/products");
+                    alert("Product updated successfully");
+                    router.push("/products");
                 }
-              } catch (error: any) {
+            } catch (error: any) {
                 console.error("Error updating product:", error);
                 alert(error.response?.data?.error || "Error updating product");
-              }
+            }
         } else {
             // create new product
             await axios.post("/api/products", formData, {
@@ -78,7 +80,7 @@ export default function ProductForm({
     }
     // function to remove existing images
     const removeExistingImage = (index: number) => {
-        setExistingImagesState(existingImagesState.filter((_,i) => i !== index));
+        setExistingImagesState(existingImagesState.filter((_, i) => i !== index));
     }
     // function to remove the newly uploaded images
     const removePreviewImage = (index: number) => {
@@ -123,7 +125,7 @@ export default function ProductForm({
 
                 <label>Upload Images</label>
                 <label className="mt-4 w-32 h-32 flex items-center justify-center border-2 border-dashed border-gray-400 rounded-lg cursor-pointer hover:bg-gray-100 relative overflow-hidden">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6 cursor-pointer">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M9 8.25H7.5a2.25 2.25 0 0 0-2.25 2.25v9a2.25 2.25 0 0 0 2.25 2.25h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25H15m0-3-3-3m0 0-3 3m3-3V15" />
                     </svg>
                     <span className="text-md text-gray-500 cursor-pointer">Upload</span>
@@ -137,11 +139,11 @@ export default function ProductForm({
                     {existingImagesState.map((image, index) => (
                         <div className="relative">
                             <img key={index} src={image} alt="existing images"
-                            className="w-20 h-20 object-cover rounded" />
+                                className="w-20 h-20 object-cover rounded" />
                             <button onClick={() => removeExistingImage(index)}
-                                 className="absolute top-1 right-1 bg-red-500 text-white text-sm rounded-full p-1 hover:cursor-pointer">X</button>
+                                className="absolute top-1 right-1 bg-red-500 text-white text-sm rounded-full p-1 hover:cursor-pointer">X</button>
                         </div>
-                        
+
                     ))}
                 </div>
 
@@ -151,7 +153,7 @@ export default function ProductForm({
                         <div className="relative">
                             <img key={index} src={image} alt="Preview" className="w-20 h-20 object-cover rounded" />
                             <button onClick={() => removePreviewImage(index)}
-                                 className="absolute top-1 right-1 bg-red-500 text-white text-sm rounded-full p-1 hover:cursor-pointer">X</button>
+                                className="absolute top-1 right-1 bg-red-500 text-white text-sm rounded-full p-1 hover:cursor-pointer">X</button>
                         </div>
                     ))}
                 </div>

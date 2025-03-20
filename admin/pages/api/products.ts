@@ -68,6 +68,8 @@ const handleProduct = async (req: NextApiRequest, res: NextApiResponse) => {
     const form = new IncomingForm();
     form.parse(req, async (err, fields, files) => {
       if (err) return res.status(500).json({ error: "File upload error" });
+      console.log("Parsed fields:", fields);
+      console.log("Parsed files:", files);
 
       // Convert fields to correct types
       const name = Array.isArray(fields.name) ? fields.name[0] : fields.name;
@@ -119,7 +121,7 @@ const handleProduct = async (req: NextApiRequest, res: NextApiResponse) => {
       const description = Array.isArray(fields.description)
         ? fields.description[0]
         : fields.description;
-      const price = Array.isArray(fields.price) ? fields.price[0] : fields.price;
+      const price = Array.isArray(fields.price) ? Number(fields.price[0]) : Number(fields.price);
       const category = Array.isArray(fields.category) ? fields.category[0] : fields.category;
       const dressStyle = Array.isArray(fields.dressStyle) ? fields.dressStyle[0] : fields.dressStyle;
 
@@ -174,11 +176,7 @@ const handleProduct = async (req: NextApiRequest, res: NextApiResponse) => {
         return res.status(500).json({ error: "Database update failed", details: errMessage });
       }
     });
-  } else {
-    res.setHeader("Allow", ["PUT"]);
-    res.status(405).json({ error: `Method ${req.method} not allowed` });
-  } 
-  
+  }
   
 };
 
