@@ -4,6 +4,9 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { v2 as cloudinaryV2 } from "cloudinary";
 import { IncomingForm } from "formidable";
 import fs from "fs";
+import {authOptions} from "@/pages/api/auth/[...nextauth]"
+import {getServerSession} from "next-auth/next"
+import { NextAuthOptions } from "next-auth";
 
 export const config = {
   api: {
@@ -38,6 +41,13 @@ const handleProduct = async (req: NextApiRequest, res: NextApiResponse) => {
   // }
 
   await mongooseConnect();
+
+  if (req.method && ["POST", "PUT", "DELETE"].includes(req.method)) {
+    const session = await getServerSession(req, res, authOptions as NextAuthOptions);
+    if (!session || session.user.role !== "admin") {
+      return res.status(403).json({ error: "Access denied" });
+    }
+  }
 
   // delete product
   if (req.method === "DELETE") {

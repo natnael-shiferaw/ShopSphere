@@ -10,8 +10,7 @@ const allowedAdminEmails = (process.env.ALLOWED_ADMIN_EMAILS || "")
   .map(email => email.trim().toLowerCase());
 
 // console.log("Allowed Admin Emails:", allowedAdminEmails);
-
-export default NextAuth({
+export const authOptions = {
   // Force JWT-based sessions so our jwt callback always runs.
   session: {
     strategy: "jwt",
@@ -23,7 +22,7 @@ export default NextAuth({
     }),
   ],
   adapter: MongoDBAdapter(clientPromise),
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: process.env.NEXTAUTH_SECRET || "default-secret-for-dev",
   callbacks: {
     async signIn({ user }) {
       // Always allow sign in; role will be determined in the JWT callback
@@ -75,4 +74,6 @@ export default NextAuth({
   pages: {
     error: "/auth/error", // Optional: create a custom error page if needed.
   },
-});
+}
+
+export default NextAuth(authOptions);
