@@ -20,14 +20,29 @@ export default function Layout({ children }: LayoutProps) {
   // Check the role on the session. If not an admin, show the login button.
   if (!session || session.user.role !== "admin") {
     return (
-      <div className="bg-gray-50 w-screen h-screen flex items-center justify-center mr-2">
+      <div className="min-h-screen flex flex-col justify-center items-center bg-gradient-to-br from-gray-50 to-gray-200 px-4">
+      <div className="text-center">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-gray-800 mb-6">
+          ShopSphere Admin Panel
+        </h1>
+        <p className="text-lg sm:text-xl text-gray-600 mb-12">
+          Welcome! Please sign in with your admin account to continue.
+        </p>
         <button
-          className="p-2 px-4 bg-gray-300 rounded-lg hover:cursor-pointer"
           onClick={() => signIn("google")}
+          className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full shadow-lg transition duration-300 hover:cursor-pointer"
         >
-          SignIn as Admin
+          <svg xmlns="http://www.w3.org/2000/svg" 
+               fill="currentColor" viewBox="0 0 48 48" className="w-6 h-6">
+            <path d="M44.5 20H24v8.5h11.8C34.9 33.2 30 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.2 8 3.1l5.7-5.7C33.5 6.7 29.1 5 24 5 13.5 5 5 13.5 5 24s8.5 19 19 19 19-8.5 19-19c0-1.3-.1-2.7-.5-4z"/>
+          </svg>
+          Sign in with Google
         </button>
       </div>
+      <footer className="mt-12 text-gray-500 text-sm">
+        &copy; {new Date().getFullYear()} ShopSphere. All rights reserved.
+      </footer>
+    </div>
     );
   }
 
