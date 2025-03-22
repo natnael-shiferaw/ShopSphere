@@ -25,7 +25,7 @@ table.table-style thead tr td {
 }
 
 table.table-style tr td {
-  @apply border border-blue-200 p-3
+  @apply border border-blue-200 p-3;
 }
 
 
