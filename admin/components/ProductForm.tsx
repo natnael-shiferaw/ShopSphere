@@ -90,7 +90,8 @@ export default function ProductForm({
 
     return (
         <div>
-            <form onSubmit={saveProduct} className="space-y-4">
+            <form onSubmit={saveProduct} 
+                  className="space-y-4 border-2 border-gray-300 p-4 mr-12 rounded-lg bg-slate-50">
                 <label>Product Name</label>
                 <input type="text" placeholder="Product name" onChange={(e) => setName(e.target.value)} value={name} />
 
@@ -100,10 +101,10 @@ export default function ProductForm({
                 <label>Price</label>
                 <input type="number" placeholder="Price in USD" onChange={(e) => setPrice(e.target.value)} value={price} />
                 {/**categories */}
-                <div className="flex gap-4 flex-col">
+                <div className="flex gap-4 items-center mt-4">
                     <label>Category</label>
                     <select onChange={(e) => setCategory(e.target.value)} value={category} required
-                        className="bg-gray-300">
+                        className="bg-gray-200 h-10 p-2 border border-gray-400 rounded">
                         <option value="" disabled>Select category</option>
                         {categories.map((cat) => (
                             <option key={cat} value={cat}>{cat}</option>
@@ -111,10 +112,10 @@ export default function ProductForm({
                     </select>
                 </div>
                 {/**Dress Style */}
-                <div className="flex gap-4 flex-col">
+                <div className="flex gap-4 items-center mt-4">
                     <label>Dress Style</label>
                     <select onChange={(e) => setDressStyle(e.target.value)} value={dressStyle} required
-                        className="bg-gray-300">
+                        className="bg-gray-200 h-10 p-2 border border-gray-400 rounded">
                         <option value="" disabled>Select dress style</option>
                         {dressStyles.map((style) => (
                             <option key={style} value={style}>{style}</option>
@@ -158,7 +159,7 @@ export default function ProductForm({
                     ))}
                 </div>
 
-                <button type="submit" className="bg-blue-900 text-white p-2 px-4 mt-4 rounded-lg hover:cursor-pointer">
+                <button type="submit" className="bg-blue-900 text-white p-2 px-4 rounded-lg hover:cursor-pointer">
                     Save
                 </button>
             </form>

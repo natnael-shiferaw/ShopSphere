@@ -43,12 +43,12 @@ export default function Layout({ children }: LayoutProps) {
           )}
         </button>
         <div className="flex grow justify-center mr-4">
-        <Link href={'/'} className='border-b border-gray-700 rounded flex gap-1 text-2xl font-semibold items-center'>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0 0 12 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75Z" />
-                    </svg>
-                    ShopSphere Admin Panel
-                </Link>
+          <Link href={'/'} className='border-b border-gray-700 rounded flex gap-1 text-xl sm:text-2xl font-semibold items-center'>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0 0 12 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75Z" />
+            </svg>
+            ShopSphere Admin Panel
+          </Link>
         </div>
 
       </div>
@@ -58,10 +58,10 @@ export default function Layout({ children }: LayoutProps) {
           <p>Welcome, <strong>{session.user.name ?? "Unknown user"}</strong></p>
           <div className="flex gap-2">
             <button
-              className="p-1 px-2 gap-1 items-center justify-center text-xs md:text-sm bg-red-600 text-white rounded-lg hover:cursor-pointer hover:bg-red-700 inline-flex"
+              className="p-0.5 px-1 sm:p-1 sm:px-2 gap-0.5 items-center justify-center text-xs md:text-sm bg-red-600 text-white rounded-lg hover:cursor-pointer hover:bg-red-700 inline-flex"
               onClick={() => signOut()} // Sign Out function
             >
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-3 md:size-4">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-2 sm:size-3 md:size-4">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M5.636 5.636a9 9 0 1 0 12.728 0M12 3v9" />
               </svg>
               LogOut

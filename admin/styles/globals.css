@@ -9,11 +9,11 @@ input:focus, textarea:focus {
 }
 
 h1 {
-  @apply text-3xl font-bold
+  @apply  text-center md:text-left text-3xl font-bold text-gray-600
 }
 
 label {
-  @apply text-lg font-medium;
+  @apply  md:text-lg font-semibold md:font-medium;
 }
 
 table.table-style {
