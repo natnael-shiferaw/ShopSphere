@@ -8,8 +8,19 @@ import { Button } from "@/components/ui/button"
 import { ArrowRight, Plus } from "lucide-react"
 import Newsletter from "@/components/Newsletter"
 import HeroSection from "@/components/HeroSection"
+import { useEffect } from "react"
 
 export default function Home() {
+  useEffect(() => {
+    const url = `/api/products`;
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("Products:", data);
+      })
+      .catch((error) => console.error("Error fetching products:", error));
+  }, []);
+
   const newArrivals = [
     {
       id: 1,
