@@ -3,7 +3,7 @@
 import Head from "next/head"
 import Link from "next/link"
 import Image from "next/image"
-import ProductCard from "@/components/product-card"
+import ProductCard from "@/components/ProductCard"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Plus } from "lucide-react"
 import Newsletter from "@/components/Newsletter"

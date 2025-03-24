@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Head from "next/head";
-import ProductGrid from "@/components/product-grid";
+import ProductGrid from "@/components/ProductGrid";
 import CategoryFilter from "@/components/category-filter";
 import PriceFilter from "@/components/price-filter";
 import { Button } from "@/components/ui/button";
