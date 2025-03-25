@@ -17,3 +17,6 @@ export interface IReviewAggregate {
     averageRating: number;
     reviewCount: number;
 }
+
+// This interface merges the product data with the review aggregate
+export interface IProductWithReviews extends IProduct, IReviewAggregate {}
