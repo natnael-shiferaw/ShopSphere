@@ -2,22 +2,17 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Star } from "lucide-react";
-import { IProduct } from "@/interfaces";
+import { IProductWithReviews } from "@/interfaces";
 
 interface ProductCardProps {
-  product: IProduct;
-  // Optional: review aggregate information (if available)
-  reviewAggregate?: {
-    averageRating: number;
-    reviewCount: number;
+  product: IProductWithReviews;
   };
-}
 
-export default function ProductCard({ product, reviewAggregate }: ProductCardProps) {
+export default function ProductCard({ product }: ProductCardProps) {
   // Use the first image from the images array or a placeholder
   const displayImage = product.images && product.images.length > 0 ? product.images[0] : "/placeholder.svg";
-  const averageRating = reviewAggregate?.averageRating || 0;
-  const reviewCount = reviewAggregate?.reviewCount || 0;
+  const roundedRating = Math.round(product.averageRating) || 0;
+  const reviewCount = product.reviewCount | 0;
 
   return (
     <Link href={`/product/${product._id}`} className="group">
@@ -37,15 +32,15 @@ export default function ProductCard({ product, reviewAggregate }: ProductCardPro
             {[...Array(5)].map((_, i) => (
               <Star
                 key={i}
-                className={`h-4 w-4 ${i < Math.round(averageRating) ? "text-yellow-400 fill-yellow-400" : "text-gray-300"}`}
+                className={`h-4 w-4 ${i < roundedRating ? "text-yellow-400 fill-yellow-400" : "text-gray-300"}`}
               />
             ))}
           </div>
           <span className="text-xs text-gray-500">({reviewCount})</span>
         </div>
-        <div className="flex items-center justify-start">
+        <div className="flex items-center justify-between">
           <p className="font-bold">${product.price}</p>
-          {/* <span className="text-sm text-green-600">-40%</span> */}
+          <span className="text-sm text-green-600">-40%</span>
         </div>
       </div>
     </Link>
