@@ -11,7 +11,10 @@ const nextConfig: NextConfig = {
         destination: `${process.env.BACKEND_URL}/api/:path*`,
       },
     ];
-  }
+  },
+  images: {
+    domains: ["res.cloudinary.com"],
+  },
 };
 
 export default nextConfig;

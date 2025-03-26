@@ -9,8 +9,13 @@ import { ArrowRight, Plus } from "lucide-react"
 import Newsletter from "@/components/Newsletter"
 import HeroSection from "@/components/HeroSection"
 import { useEffect } from "react"
+import NewArrivals from "@/components/NewArrivals"
+import TopSelling from "@/components/TopSelling"
+import useProductLimit from "@/hooks/useProductLimit"
 
 export default function Home() {
+  const limit: number = useProductLimit();
+
   useEffect(() => {
     const url = `/api/products`;
     fetch(url)
@@ -21,67 +26,67 @@ export default function Home() {
       .catch((error) => console.error("Error fetching products:", error));
   }, []);
 
-  const newArrivals = [
-    {
-      id: 1,
-      name: "One Life Graphic Tee",
-      price: 20,
-      image: "/placeholder.svg?height=300&width=300",
-      category: "T-shirts",
-    },
-    {
-      id: 2,
-      name: "Skinny Fit Jeans",
-      price: 40,
-      image: "/placeholder.svg?height=300&width=300",
-      category: "Jeans",
-    },
-    {
-      id: 3,
-      name: "Checkered Shirt",
-      price: 35,
-      image: "/placeholder.svg?height=300&width=300",
-      category: "Shirts",
-    },
-    {
-      id: 4,
-      name: "Retro Striped T-shirt",
-      price: 25,
-      image: "/placeholder.svg?height=300&width=300",
-      category: "T-shirts",
-    },
-  ]
+  // const newArrivals = [
+  //   {
+  //     id: 1,
+  //     name: "One Life Graphic Tee",
+  //     price: 20,
+  //     image: "/placeholder.svg?height=300&width=300",
+  //     category: "T-shirts",
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "Skinny Fit Jeans",
+  //     price: 40,
+  //     image: "/placeholder.svg?height=300&width=300",
+  //     category: "Jeans",
+  //   },
+  //   {
+  //     id: 3,
+  //     name: "Checkered Shirt",
+  //     price: 35,
+  //     image: "/placeholder.svg?height=300&width=300",
+  //     category: "Shirts",
+  //   },
+  //   {
+  //     id: 4,
+  //     name: "Retro Striped T-shirt",
+  //     price: 25,
+  //     image: "/placeholder.svg?height=300&width=300",
+  //     category: "T-shirts",
+  //   },
+  // ]
 
-  const topSelling = [
-    {
-      id: 5,
-      name: "Vintage Denim Shirt",
-      price: 45,
-      image: "/placeholder.svg?height=300&width=300",
-      category: "Shirts",
-    },
-    {
-      id: 6,
-      name: "Orange Graphic Tee",
-      price: 20,
-      image: "/placeholder.svg?height=300&width=300",
-      category: "T-shirts",
-    },
-    {
-      id: 7,
-      name: "Loose Fit Bermuda Shorts",
-      price: 30,
-      image: "/placeholder.svg?height=300&width=300",
-      category: "Shorts",
-    },
-    {
-      id: 8,
-      name: "Plaid Flannel Jeans",
-      price: 50,
-      image: "/placeholder.svg?height=300&width=300",
-      category: "Jeans",
-    },
-  ]
+  // const topSelling = [
+  //   {
+  //     id: 5,
+  //     name: "Vintage Denim Shirt",
+  //     price: 45,
+  //     image: "/placeholder.svg?height=300&width=300",
+  //     category: "Shirts",
+  //   },
+  //   {
+  //     id: 6,
+  //     name: "Orange Graphic Tee",
+  //     price: 20,
+  //     image: "/placeholder.svg?height=300&width=300",
+  //     category: "T-shirts",
+  //   },
+  //   {
+  //     id: 7,
+  //     name: "Loose Fit Bermuda Shorts",
+  //     price: 30,
+  //     image: "/placeholder.svg?height=300&width=300",
+  //     category: "Shorts",
+  //   },
+  //   {
+  //     id: 8,
+  //     name: "Plaid Flannel Jeans",
+  //     price: 50,
+  //     image: "/placeholder.svg?height=300&width=300",
+  //     category: "Jeans",
+  //   },
+  // ]
 
   const dressStyles = [
     { id: 1, name: "Casual", image: "/placeholder.svg?height=150&width=150" },
@@ -122,38 +127,10 @@ export default function Home() {
       <HeroSection />
 
       {/* New Arrivals Section */}
-      <section className="py-16 px-6 md:px-12 bg-white">
-        <div className="max-w-6xl mx-auto">
-          <div className="flex justify-between items-center mb-8">
-            <h2 className="text-2xl font-bold uppercase">NEW ARRIVALS</h2>
-            <Link href="/new-arrivals" className="text-sm flex items-center gap-2">
-              View all <ArrowRight size={16} />
-            </Link>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {newArrivals.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
-        </div>
-      </section>
+      <NewArrivals limit={limit} />
 
       {/* Top Selling Section */}
-      <section className="py-16 px-6 md:px-12 bg-gray-50">
-        <div className="max-w-6xl mx-auto">
-          <div className="flex justify-between items-center mb-8">
-            <h2 className="text-2xl font-bold uppercase">top selling</h2>
-            <Link href="/top-selling" className="text-sm flex items-center gap-2">
-              View all <ArrowRight size={16} />
-            </Link>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {topSelling.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
-        </div>
-      </section>
+      <TopSelling limit={limit} />
 
       {/* Browse By Style Section */}
       <section className="py-16 px-6 md:px-12 bg-white">
