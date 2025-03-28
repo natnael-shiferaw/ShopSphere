@@ -21,14 +21,14 @@ export default function Header() {
           <Link href="/" className="text-sm font-medium text-gray-700">
             Home
           </Link>
-          <Link href="/categories" className="text-sm font-medium text-gray-700">
-            Categories
-          </Link>
           <Link href="/new-arrivals" className="text-sm font-medium text-gray-700">
             New Arrivals
           </Link>
           <Link href="/top-selling" className="text-sm font-medium text-gray-700">
             Top Selling
+          </Link>
+          <Link href="/categories" className="text-sm font-medium text-gray-700">
+            Categories
           </Link>
           {/* Dress Style Dropdown */}
           <div className="relative">
