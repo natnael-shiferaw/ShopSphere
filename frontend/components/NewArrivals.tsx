@@ -26,7 +26,7 @@ export default function NewArrivals({limit} : NewArrivalsProps) {
     if (loading) return <p>Loading new arrivals...</p>;
 
     return (
-        <section className="py-16 px-6 md:px-12 bg-white">
+        <section className="py-16 px-6 md:px-12 bg-gray-100">
             <div className="max-w-6xl mx-auto">
                 <div className="flex justify-between items-center mb-8">
                     <h2 className="text-2xl font-bold uppercase">New Arrivals</h2>

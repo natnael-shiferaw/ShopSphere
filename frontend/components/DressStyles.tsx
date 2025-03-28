@@ -14,7 +14,7 @@ export default function DressStylesFlex() {
   return (
     <section className="py-16 px-6 md:px-12 bg-gray-50">
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-2xl font-bold uppercase mb-8">
+        <h2 className="text-2xl font-bold uppercase mb-12">
           BROWSE BY DRESS STYLE
         </h2>
         {/* Desktop layout: hidden on mobile */}

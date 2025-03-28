@@ -6,6 +6,9 @@ import { useState } from "react"
 
 export default function Header() {
   const [searchValue, setSearchValue] = useState("")
+  const [dropdownOpen, setDropdownOpen] = useState(false)
+
+  const dressStyles = ["Casual", "Formal", "Party", "Gym"];
 
   return (
     <header className="sticky top-0 bg-white z-50 border-b border-gray-200 py-4 px-4 md:px-6">
@@ -14,10 +17,42 @@ export default function Header() {
           SHOPSPHERE
         </Link>
 
-        <nav className="hidden md:flex items-center space-x-6">
+        <nav className="hidden md:flex items-center md:space-x-3 lg:space-x-6">
+          <Link href="/" className="text-sm font-medium text-gray-700">
+            Home
+          </Link>
           <Link href="/categories" className="text-sm font-medium text-gray-700">
             Categories
           </Link>
+          <Link href="/new-arrivals" className="text-sm font-medium text-gray-700">
+            New Arrivals
+          </Link>
+          <Link href="/top-selling" className="text-sm font-medium text-gray-700">
+            Top Selling
+          </Link>
+          {/* Dress Style Dropdown */}
+          <div className="relative">
+            <button
+              onClick={() => setDropdownOpen(!dropdownOpen)}
+              className="text-sm font-medium text-gray-700 focus:outline-none hover:cursor-pointer"
+            >
+              Dress Style ▾
+            </button>
+            {dropdownOpen && (
+              <div className="absolute left-0 mt-2 w-40 bg-white border border-gray-200 shadow-lg rounded-md">
+                {dressStyles.map((style) => (
+                  <Link
+                    key={style}
+                    href={`/dress-styles/${style.toLowerCase()}`}
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200"
+                    onClick={() => setDropdownOpen(false)}
+                  >
+                    {style}
+                  </Link>
+                ))}
+              </div>
+              )}
+          </div>
         </nav>
 
         <div className="flex items-center space-x-4">
@@ -36,14 +71,8 @@ export default function Header() {
             <img src="/cart.svg" alt="Cart" className="h-5 w-5" />
             <span className="sr-only">Cart</span>
           </Link>
-
-          <Link href="/account" className="p-2">
-            <img src="/user.svg" alt="User" className="h-5 w-5" />
-            <span className="sr-only">Account</span>
-          </Link>
         </div>
       </div>
     </header>
   )
 }
-
