@@ -67,23 +67,15 @@ export default function ProductDetail() {
       <div className="max-w-6xl mx-auto px-4 py-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Product Images Section */}
-          <div>
-            <div className="relative w-full h-96 hover:cursor-pointer hover:scale-105 transition-transform duration-300">
-              <Image
-                src={product.images[selectedImageIndex] || "/placeholder.svg"}
-                alt={product.name}
-                fill
-                className="object-cover rounded-lg shadow-md shadow-gray-300"
-              />
-            </div>
-            {product.images.length > 1 && (
-              <div className="flex gap-2 mt-4">
+          <div className="flex gap-4">
+          {product.images.length > 1 && (
+              <div className="flex flex-col gap-2 mt-4">
                 {product.images.map((img, index) => (
                   <div
                     key={index}
                     className={`relative w-20 h-20 border ${
                       selectedImageIndex === index ? "border-black" : "border-gray-300"
-                    } cursor-pointer`}
+                    } cursor-pointer rounded-lg`}
                     onClick={() => setSelectedImageIndex(index)}
                   >
                     <Image
@@ -96,6 +88,15 @@ export default function ProductDetail() {
                 ))}
               </div>
             )}
+            <div className="relative w-full h-96 hover:cursor-pointer hover:scale-105 transition-transform duration-300">
+              <Image
+                src={product.images[selectedImageIndex] || "/placeholder.svg"}
+                alt={product.name}
+                fill
+                className="object-cover rounded-lg shadow-md shadow-gray-300"
+              />
+            </div>
+            
           </div>
 
           {/* Product Info Section */}
